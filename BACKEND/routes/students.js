@@ -51,7 +51,7 @@ router.route("/update/:id").put(async (req,res)=> {
 router.route("/delete/:id").delete(async (req, res)=> {
     let userId = req.params.id;
 
-    await Student.findByIdAndUpdate(userId, updateStudent)
+    await Student.findByIdAndDelete(userId)
     .then(()=> {
         res.status(200).send({status: "User Deleted"})
     }).catch((err)=> {
@@ -62,9 +62,9 @@ router.route("/delete/:id").delete(async (req, res)=> {
 })
 
 router.route("/get/:id").get(async (req, res)=> {
-    let userId = rew.params.id;
-    await Student.findById(userId)
-    .then(()=> {
+    let userId = req.params.id;
+    const user = await Student.findById(userId)
+    .then((student)=> {
         res.status(200).send({status: "User fetch", student})
     }).catch(()=> {
         console.log(err.message);
