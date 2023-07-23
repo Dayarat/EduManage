@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
 
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -21,6 +21,10 @@ const connection = mongoose.connection;
 connection.once("open", function(){
    console.log("Mongodb Connection success!"); 
 })
+
+const studentRouter = require("./routes/students.js");
+
+app.use("/student",studentRouter);
 
 app.listen(PORT, function() {
     console.log(`Server is up and running on port number: ${PORT}`)
